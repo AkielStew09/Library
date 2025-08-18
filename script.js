@@ -63,11 +63,17 @@ document.querySelector("#cancelBtn").addEventListener("click", ()=>{
 
 //save book button adds book to the library
 saveBookBtn = document.querySelector("#saveBook");
-saveBookBtn.addEventListener("click", ()=>{
+saveBookBtn.addEventListener("click", (e)=>{
   let titleEntry = document.querySelector("#titleEntry").value;
   let authorEntry = document.querySelector("#authorEntry").value;
   let pagesEntry = Number(document.querySelector("#pagesEntry").value);
 
   addBook(titleEntry, authorEntry, pagesEntry);
+  document.querySelector("#titleEntry").value = "";
+  document.querySelector("#authorEntry").value = "";
+  document.querySelector("#pagesEntry").value  = "";
+  e.preventDefault();
   alert(`The book "${titleEntry}" has been added successfully!`);
 })
+
+displayBooks(myLibrary);

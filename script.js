@@ -20,6 +20,7 @@ function displayBooks (myLibrary){
   let bookTable = document.querySelector("#bookTable");
   for(let book of myLibrary){ //retrieve each book from the book array
     
+    //clear books if there's already a list
     //row
     let row = document.createElement("tr");
     //cells for each property

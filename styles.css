@@ -3,6 +3,10 @@
 *::after {
   font-family: "Roboto", sans-serif;
   /* weight: from 100 to 900 */
+  color: white;
+}
+body{
+    background-color: black;
 }
 .hidden{
     display: none;
@@ -18,7 +22,7 @@ h4{
     margin-left: 12rem;
 }
 td{
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid white;
 }
 th{
     border-bottom: 2px solid rebeccapurple;
@@ -32,6 +36,6 @@ button{
     margin: 0 0.3rem;
     cursor: pointer;
 }
-#showBooks{
-    border: 2px solid orange;
+.removeBook{
+    border: 2px solid rgb(180, 5, 5);
 }

@@ -7,6 +7,14 @@ function Book(title, author, noOfPages) {
   this.author = author;
   this.noOfPages = noOfPages;
   this.id = crypto.randomUUID();
+  this.readStatus = false;
+}
+
+
+Book.prototype.changeRead = function(){
+  this.readStatus = this.readStatus? false: true;
+  allShown = false;
+  displayBooks(myLibrary);
 }
 
 //The addBook function calls the Book constructor with params, then
@@ -48,7 +56,7 @@ function removeBook(event) {
     }
   }
   
-  // displayBooks(myLibrary);
+  //Pop up then remove the book's row from the display
   alert(`The book "${delTitle}" has been removed!!`);
   bookRow.remove();
 }
@@ -56,6 +64,7 @@ function removeBook(event) {
 //This is the function for displaying the books in my library.
 function displayBooks(myLibrary) {
   //if all books have been shown then drop the function
+  //this made sense when it was attached to a button
   if (allShown) return;
 
   //clear list if there's already a list
@@ -72,26 +81,35 @@ function displayBooks(myLibrary) {
     row.classList.add("bookRow");
     row.setAttribute("data-id", book.id);
 
-    //Create cells for each property of the book
+    //Create td cells for each property of the book, then the buttons
     let title = document.createElement("td");
     let author = document.createElement("td");
     let noOfPages = document.createElement("td");
+    let readStatus = document.createElement("td");
     let delBtn = document.createElement("button");
+    let changeBtn = document.createElement("button");
 
+    //edit the buttons
+    changeBtn.addEventListener("click", changeBtnFunc);
     delBtn.addEventListener("click", removeBook);
+    delBtn.classList.add("removeBook");
 
     //Fill the cells with the info from the object
     title.textContent = book.title;
     title.style.fontStyle = "italic";
 
+    readStatus.textContent = book.readStatus? "Finished": "Unfinished";
     author.textContent = book.author;
     noOfPages.textContent = book.noOfPages;
     delBtn.textContent = "Remove Book";
+    changeBtn.textContent = "Change Read Status";
 
     //add to display, by adding cells to the row and the row to the table
     row.appendChild(title);
     row.appendChild(author);
     row.appendChild(noOfPages);
+    row.appendChild(readStatus);
+    row.appendChild(changeBtn);
     row.appendChild(delBtn);
     bookTable.appendChild(row);
   }
@@ -122,8 +140,16 @@ document.querySelector("#cancelBtn").addEventListener("click", () => {
 saveBookBtn = document.querySelector("#saveBook");
 saveBookBtn.addEventListener("click", saveBook);
 
-Book.prototype.changeRead = function(){
-  this.
+//The function for changing a book's status
+function changeBtnFunc(event){
+  let _row = event.target.parentElement;
+  let _book = null;
+  for(let i = 0; i < myLibrary.length; i++){
+    if(myLibrary[i].id === _row.dataset.id){
+      _book = myLibrary[i];
+    }
+  }
+  _book.changeRead();
 }
 
 //Display books on page load

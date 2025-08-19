@@ -11,6 +11,12 @@
 table, tr, th, td{
     padding: 0.5rem;    
 }
+
+h4{
+    color: rebeccapurple;
+    font-size: 1.8rem;
+    margin-left: 12rem;
+}
 td{
     border-bottom: 2px solid black;
 }

@@ -12,6 +12,10 @@ body{
     display: none;
 }
 
+input{
+    background-color: transparent;
+}
+
 table, tr, th, td{
     padding: 0.5rem;    
 }

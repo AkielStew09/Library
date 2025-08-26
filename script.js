@@ -1,21 +1,32 @@
 const myLibrary = new Array();
 let allShown = false;
 
-//Constructor
-function Book(title, author, noOfPages) {
-  this.title = title;
-  this.author = author;
-  this.noOfPages = noOfPages;
-  this.id = crypto.randomUUID();
-  this.readStatus = false;
+//Book Class
+class Book{
+  constructor(title, author, noOfPages){
+    this.title = title;
+    this.author = author;
+    this.noOfPages = noOfPages;
+  }
+
+  id = crypto.randomUUID();
+  #readStatus = false;
+  
+  get readStatus(){
+    return #readStatus;
+  }
+
+  changeRead(){
+    //toggle readStatus field of given book
+    #readStatus = #readStatus? false: true;
+    allShown = false;
+    //re-display the list to show the change
+    displayBooks(myLibrary);
+  }
 }
 
 
-Book.prototype.changeRead = function(){
-  this.readStatus = this.readStatus? false: true;
-  allShown = false;
-  displayBooks(myLibrary);
-}
+
 
 //The addBook function calls the Book constructor with params, then
 //pushes it to the array

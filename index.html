@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Library</title>
@@ -8,33 +9,36 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <h1>Library</h1>
-    <button id="addBook">Add a Book</button>
-    <div id="bookForm" class="form-container hidden">
-      <h4>Feel free to add a book to our library</h4>
-      <form>
-        <input type="text" id="titleEntry" placeholder="Book Title" required />
-        <input type="text" id="authorEntry" placeholder="Author" required />
-        <input type="number" id="pagesEntry" placeholder="Page Count" required />
-        <button type="submit" id="saveBook">Save Book</button>
-        <button type="button" id="cancelBtn">Cancel</button>
-      </form>
-    </div>
+        href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+        rel="stylesheet" />
+</head>
 
-    <h4>Books</h4>
-    <table id="bookTable">
-      <tr>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Page Count</th>
-        <th>Read Status</th>
-      </tr>
-    </table>
-  </body>
-  <script src="script.js"></script>
+<body>
+    <div class="container">
+        <h1>Library</h1>
+        <button id="addBook">Add a Book</button>
+        <div id="bookForm" class="form-container hidden">
+            <h4>Feel free to add a book to our library</h4>
+            <form>
+                <input required type="text" id="titleEntry" placeholder="Book Title" />
+                <input type="text" id="authorEntry" placeholder="Author" required />
+                <input type="number" id="pagesEntry" placeholder="Page Count" max="2200" required />
+                <button type="submit" id="saveBook">Save Book</button>
+                <button type="button" id="cancelBtn">Cancel</button>
+            </form>
+        </div>
+
+        <h4>Books</h4>
+        <table id="bookTable">
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Page Count</th>
+                <th>Read Status</th>
+            </tr>
+        </table>
+    </div>
+</body>
+<script src="script.js"></script>
+
 </html>

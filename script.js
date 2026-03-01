@@ -3,137 +3,135 @@ let allShown = false;
 
 //Constructor
 function Book(title, author, noOfPages) {
-  this.title = title;
-  this.author = author;
-  this.noOfPages = noOfPages;
-  this.id = crypto.randomUUID();
-  this.readStatus = false;
+    this.title = title;
+    this.author = author;
+    this.noOfPages = noOfPages;
+    this.id = crypto.randomUUID();
+    this.readStatus = false;
 }
 
 
-Book.prototype.changeRead = function(){
-  this.readStatus = this.readStatus? false: true;
-  allShown = false;
-  displayBooks(myLibrary);
+Book.prototype.changeRead = function () {
+    this.readStatus = this.readStatus ? false : true;
+    allShown = false;
+    displayBooks(myLibrary);
 }
 
 //The addBook function calls the Book constructor with params, then
 //pushes it to the array
 function addBook(title, author, noOfPages) {
-  book1 = new Book(title, author, noOfPages);
-  myLibrary.push(book1);
-  allShown = false;
+    book1 = new Book(title, author, noOfPages);
+    myLibrary.push(book1);
+    allShown = false;
 }
 //The saveBook function calls the addBook function based on form inputs
 function saveBook(e) {
-  let titleEntry = document.querySelector("#titleEntry").value;
-  let authorEntry = document.querySelector("#authorEntry").value;
-  let pagesEntry = Number(document.querySelector("#pagesEntry").value);
+    let titleEntry = document.querySelector("#titleEntry");
+    let authorEntry = document.querySelector("#authorEntry");
+    let pagesEntry = Number(document.querySelector("#pagesEntry"));
 
-  addBook(titleEntry, authorEntry, pagesEntry);
+    //validate input(pending)
+    alert(`${titleEntry.validity.valueMissing}`);
 
-  //empty the inputs after info has been retrieved
-  document.querySelector("#titleEntry").value = "";
-  document.querySelector("#authorEntry").value = "";
-  document.querySelector("#pagesEntry").value = "";
-  e.preventDefault(); //to stop it from trying to send info to a server and reloading the page
+    addBook(titleEntry, authorEntry, pagesEntry);
 
-  alert(`The book "${titleEntry}" has been added successfully!`);
-  displayBooks(myLibrary);
+    //empty the inputs after info has been retrieved
+    document.querySelector("#titleEntry").value = "";
+    document.querySelector("#authorEntry").value = "";
+    document.querySelector("#pagesEntry").value = "";
+    e.preventDefault(); //to stop it from trying to send info to a server and reloading the page
+
+    alert(`The book "${titleEntry}" has been added successfully!`);
+    displayBooks(myLibrary);
 }
 
 function removeBook(event) {
-  const bookRow = event.target.parentElement;
-  const rowId = bookRow.dataset.id;
-  let delTitle = "";
-  for (let i = myLibrary.length - 1; i >= 0; i--) {
-    if (myLibrary[i].id === rowId) {
-      let bookToBeRemoved = myLibrary[i];
-      delTitle = bookToBeRemoved.title;
-      myLibrary.splice(i, 1);
-      delete bookToBeRemoved;
-      break;
+    const bookRow = event.target.parentElement;
+    const rowId = bookRow.dataset.id;
+    let delTitle;
+    for (let i = myLibrary.length - 1; i >= 0; i--) {
+        if (myLibrary[i].id === rowId) {
+            let bookToBeRemoved = myLibrary[i];
+            delTitle = bookToBeRemoved.title;
+            myLibrary.splice(i, 1);
+            break;
+        }
     }
-  }
-  
-  //Pop up then remove the book's row from the display
-  alert(`The book "${delTitle}" has been removed!!`);
-  bookRow.remove();
+
+    //Pop up then remove the book's row from the display
+    alert(`The book "${delTitle}" has been removed.`);
+    bookRow.remove();
 }
 
 //This is the function for displaying the books in my library.
 function displayBooks(myLibrary) {
-  //if all books have been shown then drop the function
-  //this made sense when it was attached to a button
-  if (allShown) return;
+    //if all books have been shown then drop the function
+    //this made sense when it was attached to a button
+    if (allShown) return;
 
-  //clear list if there's already a list
-  let existingList = document.querySelectorAll(".bookRow");
-  existingList.forEach((existingRow) => existingRow.remove());
+    //clear list if there's already a list
+    let existingList = document.querySelectorAll(".bookRow");
+    existingList.forEach((existingRow) => existingRow.remove());
 
-  //retrive the table to put the rows in it
-  let bookTable = document.querySelector("#bookTable");
-  for (let book of myLibrary) {
-    //retrieve each book from the book array
+    //retrive the table to put the rows in it
+    let bookTable = document.querySelector("#bookTable");
+    for (let book of myLibrary) {
+        //retrieve each book from the book array
 
-    //create row
-    let row = document.createElement("tr");
-    row.classList.add("bookRow");
-    row.setAttribute("data-id", book.id);
+        //create row
+        let row = document.createElement("tr");
+        row.classList.add("bookRow");
+        row.setAttribute("data-id", book.id);
 
-    //Create td cells for each property of the book, then the buttons
-    let title = document.createElement("td");
-    let author = document.createElement("td");
-    let noOfPages = document.createElement("td");
-    let readStatus = document.createElement("td");
-    let delBtn = document.createElement("button");
-    let changeBtn = document.createElement("button");
+        //Create td cells for each property of the book, then the buttons
+        let title = document.createElement("td");
+        let author = document.createElement("td");
+        let noOfPages = document.createElement("td");
+        let readStatus = document.createElement("td");
+        let delBtn = document.createElement("button");
+        let changeBtn = document.createElement("button");
 
-    //edit the buttons
-    changeBtn.addEventListener("click", changeBtnFunc);
-    delBtn.addEventListener("click", removeBook);
-    delBtn.classList.add("removeBook");
+        //edit the buttons
+        changeBtn.addEventListener("click", changeBtnFunc);
+        delBtn.addEventListener("click", removeBook);
+        delBtn.classList.add("removeBook");
 
-    //Fill the cells with the info from the object
-    title.textContent = book.title;
-    title.style.fontStyle = "italic";
+        //Fill the cells with the info from the object
+        title.textContent = book.title;
+        title.style.fontStyle = "italic";
 
-    readStatus.textContent = book.readStatus? "Finished": "Unfinished";
-    author.textContent = book.author;
-    noOfPages.textContent = book.noOfPages;
-    delBtn.textContent = "Remove Book";
-    changeBtn.textContent = "Change Read Status";
+        readStatus.textContent = book.readStatus ? "Finished" : "Unfinished";
+        author.textContent = book.author;
+        noOfPages.textContent = book.noOfPages;
+        delBtn.textContent = "Remove Book";
+        changeBtn.textContent = "Change Read Status";
 
-    //add to display, by adding cells to the row and the row to the table
-    row.appendChild(title);
-    row.appendChild(author);
-    row.appendChild(noOfPages);
-    row.appendChild(readStatus);
-    row.appendChild(changeBtn);
-    row.appendChild(delBtn);
-    bookTable.appendChild(row);
-  }
-  allShown = true; //Now all books have been shown
+        //add to display, by adding cells to the row and the row to the table
+        row.appendChild(title);
+        row.appendChild(author);
+        row.appendChild(noOfPages);
+        row.appendChild(readStatus);
+        row.appendChild(changeBtn);
+        row.appendChild(delBtn);
+        bookTable.appendChild(row);
+    }
+    allShown = true; //Now all books have been shown
 }
-
-//manually putting example books
-addBook("Dune", "Bernie Mac", 800);
-addBook("The Great Mystery", "Mekala Salah", 408);
-addBook("Forward Future", "Jeffery McDennings", 723);
 
 //I abandoned the display button idea in favour of automatically
 // displaying the list when the page loads and when a book is added
 
 //add button shows the form
-addBookBtn = document.querySelector("#addBook");
+let addBookBtn = document.querySelector("#addBook");
 addBookBtn.addEventListener("click", () => {
-  bookForm = document.querySelector("#bookForm");
-  bookForm.classList.remove("hidden");
+    bookForm = document.querySelector("#bookForm");
+    bookForm.classList.toggle("hidden");
 });
+
 //cancel button hides the form
 document.querySelector("#cancelBtn").addEventListener("click", () => {
-  bookForm = document.querySelector("#bookForm");
-  bookForm.classList.add("hidden");
+    bookForm = document.querySelector("#bookForm");
+    bookForm.classList.add("hidden");
 });
 
 //The save book button adds the book to the library
@@ -141,16 +139,19 @@ saveBookBtn = document.querySelector("#saveBook");
 saveBookBtn.addEventListener("click", saveBook);
 
 //The function for changing a book's status
-function changeBtnFunc(event){
-  let _row = event.target.parentElement;
-  let _book = null;
-  for(let i = 0; i < myLibrary.length; i++){
-    if(myLibrary[i].id === _row.dataset.id){
-      _book = myLibrary[i];
-    }
-  }
-  _book.changeRead();
+function changeBtnFunc(event) {
+    //find row
+    let row = event.target.parentElement;
+    //find book object that corresponds to row
+    let bookToChange = myLibrary.find((book) => book.id === row.dataset.id);
+    bookToChange.changeRead();
 }
+
+//manually putting example books
+addBook("Dune", "Bernie Mac", 800);
+addBook("The Great Mystery", "Mekala Salah", 408);
+addBook("Forward Future", "Jeffery McDennings", 723);
 
 //Display books on page load
 displayBooks(myLibrary);
+

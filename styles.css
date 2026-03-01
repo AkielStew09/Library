@@ -1,45 +1,75 @@
 *,
 *::before,
 *::after {
-  font-family: "Roboto", sans-serif;
-  /* weight: from 100 to 900 */
-  color: white;
+    font-family: "Roboto", sans-serif;
+    /* weight: from 100 to 900 */
+    color: white;
+    margin: 0;
+    padding: 0;
 }
-body{
+
+html,
+body {
     background-color: black;
+    height: 100%;
 }
-.hidden{
+
+.container {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hidden {
     display: none;
 }
 
-input{
+input {
     background-color: transparent;
 }
 
-table, tr, th, td{
-    padding: 0.5rem;    
+table,
+tr,
+th,
+td {
+    padding: 0.5rem;
 }
 
-h4{
+table {
+    border: 2px solid rebeccapurple;
+    border-radius: 1.6rem;
+    padding: 2rem;
+}
+
+h1 {
+    margin: 2rem 0 2rem 0;
+    font-size: 3rem;
+}
+
+h4 {
     color: rebeccapurple;
     font-size: 1.8rem;
-    margin-left: 12rem;
+    margin: 4rem 0 2rem 0;
 }
-td{
-    border-bottom: 2px solid white;
+
+td {
+    border: 2px solid white;
 }
-th{
+
+th {
     border-bottom: 2px solid rebeccapurple;
     font-size: 1.4rem;
 }
 
-button{
+button {
     padding: 0.6rem;
     background-color: transparent;
     border-radius: 0.8rem;
     margin: 0 0.3rem;
     cursor: pointer;
 }
-.removeBook{
+
+.removeBook {
     border: 2px solid rgb(180, 5, 5);
 }

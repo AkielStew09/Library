@@ -25,6 +25,12 @@ body {
     display: none;
 }
 
+.errMsg {
+    display: block;
+    color: red;
+
+}
+
 input {
     background-color: transparent;
 }

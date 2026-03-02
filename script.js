@@ -10,6 +10,33 @@ function Book(title, author, noOfPages) {
     this.readStatus = false;
 }
 
+function customErrMsg(title, author, pages) {
+    //take in the three input boxes and
+    //set custom errors based on the problem
+    if (!title.validity.valid || !author.validity.valid || !pages.validity.valid) {
+
+        if (title.validity.valueMissing) {
+            title.setCustomValidity("You really ago leff di book without a title?");
+        } else {
+            title.setCustomValidity("");
+        }
+
+        if (author.validity.valueMissing) {
+            author.setCustomValidity("Smaddy must write the book. Put an author!");
+        } else {
+            author.setCustomValidity("");
+        }
+
+        if (pages.validity.valueMissing) {
+            pages.setCustomValidity("How you fi add a book with no pages? ");
+        } else {
+            pages.setCustomValidity("");
+        }
+
+        return true;
+    }
+    return false;
+}
 
 Book.prototype.changeRead = function () {
     this.readStatus = this.readStatus ? false : true;
@@ -20,29 +47,31 @@ Book.prototype.changeRead = function () {
 //The addBook function calls the Book constructor with params, then
 //pushes it to the array
 function addBook(title, author, noOfPages) {
-    book1 = new Book(title, author, noOfPages);
+    let book1 = new Book(title, author, noOfPages);
     myLibrary.push(book1);
     allShown = false;
 }
 //The saveBook function calls the addBook function based on form inputs
 function saveBook(e) {
-    let titleEntry = document.querySelector("#titleEntry");
-    let authorEntry = document.querySelector("#authorEntry");
-    let pagesEntry = Number(document.querySelector("#pagesEntry"));
+    let title = document.querySelector("#titleEntry");
+    let author = document.querySelector("#authorEntry");
+    let pages = document.querySelector("#pagesEntry");
 
-    //validate input(pending)
-    alert(`${titleEntry.validity.valueMissing}`);
+    if (customErrMsg(title, author, pages))
+        //end the function if there's an error
+        //so it doesn't add the book
+        return;
 
-    addBook(titleEntry, authorEntry, pagesEntry);
+    addBook(title.value, author.value, Number(pages.value));
+
+    alert(`The book "${title.value}" has been added successfully!`);
+    e.preventDefault();
+    displayBooks(myLibrary);
 
     //empty the inputs after info has been retrieved
     document.querySelector("#titleEntry").value = "";
     document.querySelector("#authorEntry").value = "";
     document.querySelector("#pagesEntry").value = "";
-    e.preventDefault(); //to stop it from trying to send info to a server and reloading the page
-
-    alert(`The book "${titleEntry}" has been added successfully!`);
-    displayBooks(myLibrary);
 }
 
 function removeBook(event) {
@@ -154,4 +183,3 @@ addBook("Forward Future", "Jeffery McDennings", 723);
 
 //Display books on page load
 displayBooks(myLibrary);
-

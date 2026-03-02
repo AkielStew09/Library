@@ -19,12 +19,13 @@
         <button id="addBook">Add a Book</button>
         <div id="bookForm" class="form-container hidden">
             <h4>Feel free to add a book to our library</h4>
-            <form>
-                <input required type="text" id="titleEntry" placeholder="Book Title" />
+            <form id="addForm">
+                <input type="text" id="titleEntry" placeholder="Book Title" required />
                 <input type="text" id="authorEntry" placeholder="Author" required />
                 <input type="number" id="pagesEntry" placeholder="Page Count" max="2200" required />
                 <button type="submit" id="saveBook">Save Book</button>
                 <button type="button" id="cancelBtn">Cancel</button>
+                <span class="errMsg"></span>
             </form>
         </div>
 
